@@ -1,21 +1,4 @@
 // create web server
-// run: node comments.js
-// test: curl -i http://localhost:8080/comments
-// test: curl -i http://localhost:8080/comments/1
-// test: curl -i -X POST -H 'Content-Type: application/json' -d '{"author": "John Smith", "text": "This is a comment"}' http://localhost:8080/comments
-// test: curl -i -X PUT -H 'Content-Type: application/json' -d '{"author": "John Smith", "text": "This is a comment"}' http://localhost:8080/comments/1
-// test: curl -i -X DELETE http://localhost:8080/comments/1
-// test: curl -i -X DELETE http://localhost:8080/comments/2
-
-// load modules
-var http = require('http');
-var url = require('url');
-var fs = require('fs');
-
-// global variables
-var DATA_FILE = 'comments.json';
-
-// create web server
 http.createServer(function (req, res) {
     // set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -59,3 +42,10 @@ http.createServer(function (req, res) {
                 var comments = JSON.parse(data);
 
                 // find comment
+                var comment = comments.filter(function (comment) {
+                    return comment.id == id;
+                });
+            });
+        }
+    }
+}).listen(3000);
